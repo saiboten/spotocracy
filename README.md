@@ -7,7 +7,7 @@ This repo is for distribution on `spotocracy`.
 Install with `git`:
 
 ```shell
-git git git
+git git git git
 ```
 
 ## Documentation
