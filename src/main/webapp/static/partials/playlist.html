@@ -2,7 +2,7 @@
 
 	<div class="panel panel-default">
 		<div class="panel-body">Du har {{userVotes}} stemmer. Stem på
-			låter ved å klikke på sanger under.</div>
+			låter ved å klikke på låten.</div>
 		<div class="panel-body" ng-show="currentArtist">Spiller nå: <strong>{{currentArtist}}</strong> - {{currentSong}}</div>
 	</div>
 
@@ -11,19 +11,25 @@
 	<div ng-show="result" class="alert alert-success">{{result}}</div>
 
 	<div class="list-group">
-		<a href='#/playlist' class="list-group-item" ng-repeat="song in songs | filter:playlistFilter"
+	
+		<div ng-hide="songs" class="panel panel-default">
+			<div class="panel-body">Du har ikke lagt til noen låter i spillelisten enda. Klikk søk på toppen for å søke opp låter du vil legge til.</div>
+			
+		</div>
+	
+		<a href='#/playlist' class="list-group-item" popover="Klikk for å stemme!" popover-placement="left" popover-trigger="mouseenter" ng-repeat="song in songs"
 			ng-click="boostTrack(song.uri, song.artist, song.song)"> 
 			
-			<span class="badge">{{song.score}}</span> 
-			<progressbar value="(song.score/totalVotes) * 100"><span style="color:black; white-space:nowrap;"><strong>{{song.artist}}</strong> - {{song.song}}</span></progressbar>
 			
+			<div class="row">
+				<div class="col-md-4"><strong>{{song.artist}}</strong> - {{song.song}}<strong></div>
+				<div class="col-md-6"><progressbar value="(song.score/totalVotes) * 100"><span style="color:black; white-space:nowrap;"></progressbar></div>
+				<div class="col-md-2"><span class="badge">{{song.score}}</span> </div>
+			</div>
 			
 			
 		</a>
 	</div>
-	
-		<label for="filterPlaylist">Filtrer playlist</label> <input id="filterPlaylist" type="search" class="form-control"  ng-model="playlistFilter"></input>
-	
 
 
 </div>

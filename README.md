@@ -1,5 +1,7 @@
 # spotocracy
 
+Spotocracy is a project.
+
 This repo is for distribution on `spotocracy`.
 
 ## Install

@@ -27,32 +27,41 @@
 <title>Spotocracy!</title>
 </head>
 <body>
-
 	<div class="jumbotron">
-	
-	
-
 		<div ng-controller="MenuController" class="container">
 		
 			<ul class="nav nav-pills">
-			  <li ng-class="getClass('/search')"><a  href="#/search">Søk</a></li>
-			  <li ng-class="getClass('/playlist')"><a  href="#/playlist">Spilleliste</a></li>
+			  	<li ng-class="getClass('/playlist')"><a  href="#/playlist">Spilleliste</a></li>
+			   	<li ng-class="getClass('/search')"><a  href="#/search">Søk</a></li>
 			</ul>
 			
 			<div class="page-header">
-				<h1>Spillelistenavn: ${playlist}</h1>
+				<h2>Spillelistenavn: ${playlist}</h2>
+
+				
+				
 			</div>
 
 			<div ng-view></div>
+			
+			
+			<button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Hvordan fungerer dette?</button>
+				
+			<div collapse="isCollapsed">		
+				<div class="well well-lg">Spotocracy er demokratisk spotify. Avspiller pc-en kobler opp Spotify-desktop-appen, og kobler appen opp mot denne spillelisten. Deretter kan brukerne gå til denne nettsiden for å legge til låter. Spotify vil spille av sangen på toppen av spillelisten når den har spilt ferdig en låt. Brukere får 5 stemmer hver halvtime.</div> 
+			</div>
 
 		</div>
 
 	</div>
 	<div class="container">
+	
+		
 
 		<footer>
 			<p>&copy; Tobias Rusås Olsen 2014</p>
 		</footer>
+		<em>Del denne lenken til andre som vil bruke spotocracy på denne spillelisten: <a href="http://109.189.175.149/spotocracy/get/${playlist}?angular=true">http://109.189.175.149/spotocracy/get/${playlist}?angular=true</a></em>
 	</div>
 
 

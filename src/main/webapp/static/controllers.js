@@ -159,6 +159,9 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
  * Playlist Controller!
  */
 phonecatApp.controller('MenuController', function ($scope, $location) {
+	
+	$scope.isCollapsed = true;
+	
 	$scope.getClass = function(path) {
 		console.log("GET CLASS HAS BEEN CALLED! PATH: ", path)
 	    if ($location.path().substr(0, path.length) == path) {
@@ -168,5 +171,7 @@ phonecatApp.controller('MenuController', function ($scope, $location) {
 	      return ""
 	    }
 	}
+	
+	
 });
 	
