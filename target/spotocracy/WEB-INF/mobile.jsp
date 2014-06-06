@@ -31,13 +31,13 @@ h2 {
 </style>
 
 <link rel="stylesheet"
-	href="static/jquery.mobile-1.1.0/jquery.mobile-1.1.0.css" />
+	href="/spotocracy/static/jquery.mobile-1.1.0/jquery.mobile-1.1.0.css" />
 
-<script src="static/jquery.mobile-1.1.0/demos/js/jquery.js"></script>
-<script src="static/jquery.mobile-1.1.0/demos/docs/_assets/js/jqm-docs.js"></script>
-<script src="static/jquery.mobile-1.1.0/jquery.mobile-1.1.0.js"></script>
+<script src="/spotocracy/static/jquery.mobile-1.1.0/demos/js/jquery.js"></script>
+<script src="/spotocracy/static/jquery.mobile-1.1.0/demos/docs/_assets/js/jqm-docs.js"></script>
+<script src="/spotocracy/static/jquery.mobile-1.1.0/jquery.mobile-1.1.0.js"></script>
 <script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
-<script src="static/script.js" type="text/javascript"></script>
+<script src="/spotocracy/static/script.js" type="text/javascript"></script>
 <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">

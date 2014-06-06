@@ -11,13 +11,13 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.21/themes/base/jquery-ui.css" type="text/css" media="all" />
 
 <style type="text/css" title="currentStyle" media="screen">
-	@import "static/style.css";
+	@import "/spotocracy/static/style.css";
 </style>
 
-<script type="text/javascript" src="static/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/spotocracy/static/jquery-1.7.1.min.js"></script>
 
 <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>
-<script src="static/script.js" type="text/javascript"></script>
+<script src="/spotocracy/static/script.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 	var playlist = '${playlist}';
@@ -37,6 +37,9 @@
 	<div id="page">
 		<div id="content">
 			<div class="box" id="content-box1">
+			
+				<h3>Tilgjengelige stemmer: <span id="availableVotes">${user.availableVotes}</span></h3>
+			
 				<h3>Stem på låt</h3>
 				<ul class="list songs">
 					

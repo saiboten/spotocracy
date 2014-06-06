@@ -1,6 +1,6 @@
 
 function addSong(trackid) {
-	$.post(playlist + '/add/' + trackid, function(data) {
+	$.post('/spotocracy/add/' + playlist + "/" + trackid, function(data) {
 		$('#feedback').show();
 		$('#searchResultText').hide();
 		if(data.success) {
@@ -73,10 +73,10 @@ function appendHandlers() {
 	
 	// Click causes post-boost call to server side
 	$('.song').click(function(data) {
-		$.post(playlist + "/boost/" + $(this).attr('id'), function(data) {
+		$.post("/spotocracy/boost/" + playlist + "/" + $(this).attr('id'), function(data) {
 			if(data.alreadyvoted == "true") {
 				$('#feedback').show();
-				$('#feedback').html('<p id="fadeout">Du har allerede stemt på denne låten').fadeOut(5000);
+				$('#feedback').html('<p id="fadeout">Du er tom for stemmer!').fadeOut(5000);
 			}
 			else {
 				updateSongs(data.songs);
@@ -110,7 +110,7 @@ function updateSongs(songs) {
 }
 
 function getCurrentSongs() {
-	$.get( playlist + '/get_current_songs', function(data) {
+	$.get( '/spotocracy/get_current_songs/' + playlist, function(data) {
 		
 		if(data.playingSong != undefined) {
 			$('#slogantitle').html("Spiller nå: " + data.playingSong.artist + " - " + data.playingSong.song );
@@ -126,10 +126,15 @@ function getCurrentSongs() {
 }
 
 function updateSongsAjax() {
-	$.get( playlist + '/get_current_songs', function(data) {
+	$.get( '/spotocracy/get_current_songs/' + playlist, function(data) {
 		if(data.playingSong != undefined) {
 			$('#slogantitle').html("Spiller nå: " + data.playingSong.artist + " - " + data.playingSong.song );
 		}
+		
+		if(data.userVotes) {
+			$('#availableVotes').html( data.userVotes );
+		}
+		
 		updateSongs(data.songs);
 	});
 }
