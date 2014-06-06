@@ -31,17 +31,17 @@ public class DefaultController {
 		this.userIDService = userIDService;
 	}
 
-	@RequestMapping("get/{path}")
+	@RequestMapping("p/{path}")
 	public ModelAndView defaultHandler(@PathVariable String path,
 			@RequestParam(required = false, value = "m") String m,
-			@RequestParam(required = false, value = "angular") String angular) {
+			@RequestParam(required = false, value = "desktop") String desktop) {
 		ModelAndView mav = null;
 		if (m != null) {
 			mav = new ModelAndView("mobile");
-		} else if (angular != null) {
-			mav = new ModelAndView("angular");
-		} else {
+		} else if (desktop != null) {
 			mav = new ModelAndView("index");
+		} else {
+			mav = new ModelAndView("angular");
 		}
 		LOGGER.debug("Default controller called");
 		if (path != null && !playlistService.playlistExists(path)) {
