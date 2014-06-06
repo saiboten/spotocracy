@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Spotocracy</title>
+	<link rel="stylesheet" href="sp://import/css/adam.css">
+	<link rel="stylesheet" href="spotocracy.css">
+	<script src="jquery.min.js"></script>
+</head>
+<body onload="sp = getSpotifyApi(1); spotocracy = sp.require('spotocracy'); spotocracy.init();">
+<h1 id="header">Velkommen til Spotocracy</h1>
+<div id="main">Lim inn spilleliste: <input type="text" id="playlist" /></div>
+<div id="playlisturl"></div>
+</body>
+</html>
