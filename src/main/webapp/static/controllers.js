@@ -12,6 +12,10 @@ function($routeProvider) {
       templateUrl: '../static/partials/playlist.html',
       controller: 'PlaylistController'
     }).
+    when('/about', {
+        templateUrl: '../static/partials/about.html',
+        controller: 'AboutController'
+      }).
     otherwise({
       redirectTo: '/playlist'
     });
@@ -173,5 +177,40 @@ phonecatApp.controller('MenuController', function ($scope, $location) {
 	}
 	
 	
+});
+
+/**
+ * Playlist Controller!
+ */
+phonecatApp.controller('AboutController', function ($scope, $location) {
+	
+	$scope.oneAtATime = false;
+
+	  $scope.groups = [
+	    {
+	      title: 'Hvordan får jeg poeng?',
+	      content: 'Du får automatisk 5 poeng hver halvtime.'
+	    },
+	    {
+	      title: 'Hvordan stemmer jeg på en låt?',
+	      content: 'Enkelt! Bare klikk på den.'
+	    },
+	    {
+	      title: 'Hvordan legger jeg til en låt?',
+	      content: 'Gå på søk, skriv inn det du søker etter i søkefeltet, og klikk på sangen på resultatsiden.'
+	    },
+	    {
+	      title: 'Kan man ta utgangspunkt i en eksisterende spotify-playlist for å populere spillelisten?',
+	      content: 'Detter kommer. Snart.'
+	    },
+	    {
+	      title: 'Hvordan installerer jeg spotify-spotocracy-appen?',
+	      content: 'Detaljert info om dette kommer kanskje. Dette er avansert. Det innebærer bl.a. å aktivere developer-mode, laste ned spotocracy-appen og plassere den på riktig sted. Deretter skrive en magisk kommando i spotify-desktop-klienten.'
+	    },
+	    {
+	      title: 'Kan jeg ha flere spillelister?',
+	      content: 'Ja, du kan ha så mange spillelister du vil. Spillelistenavnet bestemmes av adressen, f.eks spotocracy.com/p/dittspillelistenavn'
+	    }
+	  ];
 });
 	

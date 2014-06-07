@@ -33,7 +33,7 @@
  	<bean id="pointBooster" class="no.saiboten.spotify.service.PointBooster" />
  	
  	<task:scheduled-tasks scheduler="scheduler">
-	    <task:scheduled ref="pointBooster" method="boostPoints" fixed-delay="60000"/>
+	    <task:scheduled ref="pointBooster" method="boostPoints" fixed-delay="300000"/>
 	</task:scheduled-tasks>
  
 </beans>
