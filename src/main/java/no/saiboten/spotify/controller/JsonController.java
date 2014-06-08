@@ -1,10 +1,13 @@
 package no.saiboten.spotify.controller;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import no.saiboten.spotify.bean.Ok;
 import no.saiboten.spotify.bean.SongBean;
+import no.saiboten.spotify.bean.SpotifyUrl;
 import no.saiboten.spotify.bean.User;
 import no.saiboten.spotify.service.PlaylistService;
 import no.saiboten.spotify.service.UserIDService;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
@@ -85,11 +89,20 @@ public class JsonController {
 				playlistService.getLeadingSongAndResetScore(playlistId));
 		return mav;
 	}
-
+	
 	@RequestMapping("addSongs/{playlistId}")
-	public void addSongs(@RequestBody String json,
+	public @ResponseBody Ok addSongs(@RequestBody final List<String> spotifyUrls,
 			@PathVariable String playlistId) {
-		LOGGER.debug("Data:" + json);
+		
+		if (playlistId != null && !playlistService.playlistExists(playlistId)) {
+			playlistService.createPlaylist(playlistId);
+		}
+		
+		for(String spotifyUrl : spotifyUrls) {
+			LOGGER.debug("Adding song:" + spotifyUrl);
+			addSong(playlistId, spotifyUrl);
+		}
+		return new Ok();
 	}
 
 	@RequestMapping("get_current_songs/{playlistId}")

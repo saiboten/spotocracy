@@ -13,6 +13,6 @@
 	"RequiredPermissions": [
 		"http://ws.audioscrobbler.com",
 		"http://search.twitter.com/",
-		"http://80.202.102.44"
+		"http://localhost"
 	]
 }

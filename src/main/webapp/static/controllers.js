@@ -35,6 +35,7 @@ phonecatApp.controller('SearchController', function ($scope, $http, $timeout) {
 	$scope.delayedClearStatus = function() {
 		$timeout(function() {
 			$scope.status = "";
+			$scope.error = "";
 		},5000)
 	}
 	
@@ -51,11 +52,11 @@ phonecatApp.controller('SearchController', function ($scope, $http, $timeout) {
 		    		 $scope.tracks = undefined;
 		    	}
 		    	else {
-		    		$scope.status = "Låt ble ikke lagt til?";
+		    		$scope.error = "Låt ble ikke lagt til?";
 		    	}
 		    }).
 		    error(function(data, status) {
-		    	$scope.status = "Noe gikk fryktelig galt:" + status;
+		    	$scope.error = "Noe gikk fryktelig galt:" + status;
 		  });
 		 
 		 $scope.delayedClearStatus();
@@ -100,6 +101,7 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 	$scope.delayedClearStatus = function() {
 		$timeout(function() {
 			$scope.result = "";
+			$scope.error = "";
 		},5000)
 	}
 	
@@ -120,7 +122,7 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 		    	console.log("User votes: ", $scope.userVotes);
 		    }).
 		    error(function(data, status) {
-		    	$scope.status = "Noe gikk fryktelig galt:" + status;
+		    	$scope.error = "Noe gikk fryktelig galt:" + status;
 		    	$scope.delayedClearStatus();
 		  });	
 	}
@@ -134,7 +136,7 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 		    success(function(data, status) {
 		    	if(status == 200) {
 		    		if(data.alreadyvoted) {
-		    			$scope.result = "Du har brukt opp stemmene dine.";
+		    			$scope.error = "Du har brukt opp stemmene dine.";
 		    		}
 		    		else {
 		    			$scope.result = "Stemme gitt til " + artist + " - " + song;		    			
@@ -143,12 +145,12 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 		    		$scope.getSong();
 		    	}
 		    	else {
-		    		$scope.result = "Noe gikk galt :(!";
+		    		$scope.error = "Noe gikk galt :(!";
 		    	}
 		    	
 		    }).
 		    error(function(data, status) {
-		    	$scope.result = "Noe gikk fryktelig galt:" + status;
+		    	$scope.error = "Noe gikk fryktelig galt:" + status;
 		  });
 		 
 		 $scope.delayedClearStatus();

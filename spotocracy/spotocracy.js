@@ -20,8 +20,41 @@ function playOrPause() {
 }
 
 function play_song(data) {
+	console.log(data.nextSong);
 	player.playTrack(data.nextSong);
 	player.playing = true;
+}
+
+function add_playlist(event) {
+	var playListUrl= $('#playlistAdd').val();
+	var playlist = $('#playlist').val();
+	console.log("playlistUrl: ", playListUrl);
+
+	var collection = models.Playlist.fromURI(playListUrl);
+	console.log("Collection: ", collection.tracks);
+	
+	var justUris = collection.tracks.map(function(elem) {
+		return elem.data.uri;
+	});
+	
+	var postUrl = 'http://localhost:80/spotocracy/addSongs/' + playlist;
+	
+	console.log("Post url: ", playlist);
+	console.log("Post url: ", postUrl);
+	
+	jQuery.ajax({
+		'type': 'POST',
+		headers: { 
+			Accept : "application/json; charset=utf-8",
+		},
+		contentType : 'application/json',
+		'url': postUrl,
+		'data': JSON.stringify(justUris),
+		'dataType': 'json',
+		'success': function(data) {
+			console.log(data);
+		}
+	});
 }
 
 function perform_ajax_call() {
@@ -35,7 +68,7 @@ function perform_ajax_call() {
 	
     var xhr = new XMLHttpRequest();
 	console.log("xhr object created. Playlist value: " + playlist);
-	var request = 'http://80.202.102.44/spotocracy/' + playlist + '/getSong'
+	var request = 'http://localhost:80/spotocracy/getSong/' + playlist;
 	
 	xhr.open('GET', request);
 
@@ -44,7 +77,7 @@ function perform_ajax_call() {
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState != 4) return;
 		var data = JSON.parse(xhr.responseText);
-		console.log("data: " + data);
+		console.log("data: ", data);
 		play_song(data);
 	}
 	console.log("sending request");
@@ -61,6 +94,10 @@ function init() {
 	
 	$('#playlist').keyup(function(data) {
 		$('#playlisturl').html('Playlist url: <a href="http://80.202.102.44/spotocracy/' + $('#playlist').val() + '">http://80.202.102.44/spotocracy/' + $('#playlist').val() + '</a>');
+	});
+	
+	$('#addPlaylistButton').click(function() {
+		add_playlist();
 	});
 	
 	player.observe(models.EVENT.CHANGE, function (e) {

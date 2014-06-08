@@ -1,14 +1,16 @@
 <div ng-controller="PlaylistController">
 
 	<div class="panel panel-default">
-		<div class="panel-body">Du har {{userVotes}} stemmer. Stem på
-			låter ved å klikke på låten.</div>
+		<div class="panel-body">Du har {{userVotes}} stemmer.</div>
 		<div class="panel-body" ng-show="currentArtist">Spiller nå: <strong>{{currentArtist}}</strong> - {{currentSong}}</div>
 	</div>
 
 	<h2>Spillelisten</h2>
 
 	<div ng-show="result" class="alert alert-success">{{result}}</div>
+	<div ng-show="error" class="alert alert-danger">{{error}}</div>
+	<div ng-show="!result && !error" class="well">Stem på
+			låter ved å klikke på låten.</div>
 
 	<div class="list-group">
 	

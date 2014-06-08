@@ -11,7 +11,7 @@ public class User {
 
 	private String id;
 	private Map<String, Boolean> votes;
-	private int availableVotes = 0;
+	private int availableVotes = 5;
 
 	public int getAvailableVotes() {
 		return availableVotes;
