@@ -89,7 +89,7 @@
 						</connector>
 					</connectors>
 					<webAppConfig>
-						<contextPath>/spotocracy</contextPath>
+						<contextPath>/</contextPath>
 					</webAppConfig>
 				</configuration>
 				<executions>
