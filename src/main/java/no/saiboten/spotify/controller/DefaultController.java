@@ -30,6 +30,15 @@ public class DefaultController {
 		this.userService = userService;
 		this.userIDService = userIDService;
 	}
+	
+	@RequestMapping("/")
+	public ModelAndView rootHandler() {
+		ModelAndView mav = null;
+		
+			mav = new ModelAndView("root");
+		
+		return mav;
+	}
 
 	@RequestMapping("p/{path}")
 	public ModelAndView defaultHandler(@PathVariable String path,

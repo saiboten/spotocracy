@@ -97,6 +97,7 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 	$scope.boostTrackUri = '/spotocracy/boost/'
 	$scope.playlist = Spotocracy.playlist;
 	$scope.totalVotes = 0;
+	$scope.selectedSong = undefined;
 	
 	$scope.delayedClearStatus = function() {
 		$timeout(function() {
@@ -127,10 +128,10 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 		  });	
 	}
 	
-	$scope.boostTrack = function(track, artist, song) {
-		console.log("Lets boost this track: ", track);
-		
-		var fullUri = $scope.boostTrackUri + $scope.playlist + "/" + track;
+	$scope.boostTrack = function(song) {
+		console.log("Lets boost this track: ", song);
+		$scope.selectedSong = song;
+		var fullUri = $scope.boostTrackUri + $scope.playlist + "/" + song.uri;
 		
 		 $http({method: $scope.boostMethod, url: fullUri, cache: false}).
 		    success(function(data, status) {
@@ -139,7 +140,7 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 		    			$scope.error = "Du har brukt opp stemmene dine.";
 		    		}
 		    		else {
-		    			$scope.result = "Stemme gitt til " + artist + " - " + song;		    			
+		    			$scope.result = "";		    			
 		    		}
 		    		
 		    		$scope.getSong();
@@ -169,7 +170,6 @@ phonecatApp.controller('MenuController', function ($scope, $location) {
 	$scope.isCollapsed = true;
 	
 	$scope.getClass = function(path) {
-		console.log("GET CLASS HAS BEEN CALLED! PATH: ", path)
 	    if ($location.path().substr(0, path.length) == path) {
 	      return "active"
 	    } 
@@ -216,3 +216,27 @@ phonecatApp.controller('AboutController', function ($scope, $location) {
 	  ];
 });
 	
+
+phonecatApp.controller('RootController', function ($scope, $location, $http) {
+	
+	$http({method: "GET", url: "/spotocracy/playlists" , cache: false}).
+	    success(function(data, status) {
+	    	console.log("Data:", data);
+	    	$scope.playlists = data.playlists;
+	    }).
+	    error(function(data, status) {
+	    	console.log("Error:", data);
+	  });	
+	
+	
+	$scope.getPlaylist = function(view) {
+		return $scope.playlists.filter(function(playlist) {
+			var re = new RegExp(view, 'g');
+			return playlist.match(re);
+		});
+	}
+	
+	$scope.clicked = function() {
+		window.location = '/spotocracy/p/' + $scope.url;
+	}
+});

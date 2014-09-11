@@ -134,6 +134,14 @@ public class JsonController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping("playlists")
+	public ModelAndView getAvailablePlaylists() {
+		ModelAndView mav = new ModelAndView();
+		mav.setView(new MappingJacksonJsonView());
+		mav.addObject("playlists", playlistService.getPlayLists());
+		return mav;
+	}
 
 	@RequestMapping("add/{playlistId}/{uri}")
 	public ModelAndView addSong(@PathVariable String playlistId,

@@ -2,6 +2,7 @@ package no.saiboten.spotify.service;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import no.saiboten.spotify.bean.SongBean;
@@ -115,5 +116,9 @@ public class PlaylistService {
 
 	public String getLeadingSong(String playlistId) {
 		return playlists.get(playlistId).getLeadingSong();
+	}
+	
+	public Object[] getPlayLists() {
+		return playlists.keySet().toArray();
 	}
 }

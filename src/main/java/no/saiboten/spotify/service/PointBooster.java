@@ -13,7 +13,7 @@ public class PointBooster {
 
 	final static Logger LOGGER = Logger.getLogger(PointBooster.class);
 
-	private static final int VOTES_GIVEN_PER_ROUND = 5;
+	private static final int VOTES_GIVEN_PER_ROUND = 1;
 
 	private UserService userService;
 
