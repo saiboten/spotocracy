@@ -48,7 +48,7 @@
 		<footer>
 			<p>&copy; Tobias Rusås Olsen 2014</p>
 		</footer>
-		<em>Del denne lenken til andre som vil bruke spotocracy på denne spillelisten: <a href="http://109.189.175.149/spotocracy/p/${playlist}">http://109.189.175.149/spotocracy/p/${playlist}</a></em>
+		<em>Del denne lenken til andre som vil bruke spotocracy på denne spillelisten: <a href="http://spotocracy.net/p/${playlist}">http://spotocracy.net/p/${playlist}</a></em>
 	</div>
 
 
