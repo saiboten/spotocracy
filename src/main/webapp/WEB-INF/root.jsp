@@ -6,8 +6,8 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-<script src="/spotocracy/static/angular.min.js" type="text/javascript"></script>
-<script src="/spotocracy/static/angular-route.min.js"
+<script src="static/angular.min.js" type="text/javascript"></script>
+<script src="static/angular-route.min.js"
 	type="text/javascript"></script>
 
 <script
@@ -18,7 +18,7 @@
 
 
 
-<script src="/spotocracy/static/controllers.js" type="text/javascript"></script>
+<script src="static/controllers.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 </script>
@@ -48,7 +48,7 @@
 		<footer>
 			<p>&copy; Tobias Rusås Olsen 2014</p>
 		</footer>
-		<em>Del denne lenken til andre som vil bruke spotocracy på denne spillelisten: <a href="http://spotocracy.net/p/${playlist}">http://spotocracy.net/p/${playlist}</a></em>
+		
 	</div>
 
 

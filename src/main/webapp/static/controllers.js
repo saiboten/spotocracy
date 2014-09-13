@@ -29,7 +29,7 @@ phonecatApp.controller('SearchController', function ($scope, $http, $timeout) {
 	
 	$scope.method = 'GET';
 	$scope.theUrl = 'http://ws.spotify.com/search/1/track.json?q=';
-	$scope.addTrackUrl = '/spotocracy/add/'
+	$scope.addTrackUrl = '/add/'
 	$scope.playlist = Spotocracy.playlist;
 	
 	$scope.delayedClearStatus = function() {
@@ -91,10 +91,10 @@ phonecatApp.controller('SearchController', function ($scope, $http, $timeout) {
 phonecatApp.controller('PlaylistController', function ($scope, $http, $interval, $timeout) {
 	
 	$scope.method = 'GET';
-	$scope.getSongsUri = '/spotocracy/get_current_songs/'
+	$scope.getSongsUri = '/get_current_songs/'
 		
 	$scope.boostMethod = 'POST';
-	$scope.boostTrackUri = '/spotocracy/boost/'
+	$scope.boostTrackUri = '/boost/'
 	$scope.playlist = Spotocracy.playlist;
 	$scope.totalVotes = 0;
 	$scope.selectedSong = undefined;
@@ -219,7 +219,7 @@ phonecatApp.controller('AboutController', function ($scope, $location) {
 
 phonecatApp.controller('RootController', function ($scope, $location, $http) {
 	
-	$http({method: "GET", url: "/spotocracy/playlists" , cache: false}).
+	$http({method: "GET", url: "/playlists" , cache: false}).
 	    success(function(data, status) {
 	    	console.log("Data:", data);
 	    	$scope.playlists = data.playlists;
@@ -237,6 +237,6 @@ phonecatApp.controller('RootController', function ($scope, $location, $http) {
 	}
 	
 	$scope.clicked = function() {
-		window.location = '/spotocracy/p/' + $scope.url;
+		window.location = '/p/' + $scope.url;
 	}
 });

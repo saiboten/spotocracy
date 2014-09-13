@@ -6,8 +6,8 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-<script src="/spotocracy/static/angular.min.js" type="text/javascript"></script>
-<script src="/spotocracy/static/angular-route.min.js"
+<script src="../static/angular.min.js" type="text/javascript"></script>
+<script src="../static/angular-route.min.js"
 	type="text/javascript"></script>
 
 <script
@@ -16,7 +16,7 @@
 	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"
 	rel="stylesheet">
 
-<script src="/spotocracy/static/controllers.js" type="text/javascript"></script>
+<script src="../static/controllers.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 	Spotocracy = {};
@@ -50,13 +50,11 @@
 
 	</div>
 	<div class="container">
-	
-		
 
 		<footer>
 			<p>&copy; Tobias Rusås Olsen 2014</p>
 		</footer>
-		<em>Del denne lenken til andre som vil bruke spotocracy på denne spillelisten: <a href="http://109.189.175.149/spotocracy/p/${playlist}">http://109.189.175.149/spotocracy/p/${playlist}</a></em>
+		<em>Del denne lenken til andre som vil bruke spotocracy på denne spillelisten: <a href="http://spotocracy.net/p/${playlist}">http://spotocracy.net/p/${playlist}</a></em>
 	</div>
 
 
