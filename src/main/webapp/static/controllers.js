@@ -237,6 +237,7 @@ phonecatApp.controller('RootController', function ($scope, $location, $http) {
 	}
 	
 	$scope.clicked = function() {
+		console.log("Changing url to ", $scope.url);
 		window.location = '/p/' + $scope.url;
 	}
 });
