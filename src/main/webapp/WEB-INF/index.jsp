@@ -67,7 +67,7 @@
 		<div id="page-bottom-content">
 			<h3>Om Spotocracy</h3>
 			<p>
-				Spotocracy er laget av Tobias Rusås Olsen. Fungerer egentlig bare på min maskin, inntil videre.
+				Spotocracy er laget av Tobias Rusås Olsen.
 			</p>
 			
 			<div id="dialog-modal" title="">
