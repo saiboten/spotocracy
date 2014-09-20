@@ -5,15 +5,15 @@ phonecatApp.config(['$routeProvider',
 function($routeProvider) {
   $routeProvider.
     when('/search', {
-      templateUrl: '../static/partials/search.html',
+      templateUrl: '../partials/search.html',
       controller: 'SearchController'
     }).
     when('/playlist', {
-      templateUrl: '../static/partials/playlist.html',
+      templateUrl: '../partials/playlist.html',
       controller: 'PlaylistController'
     }).
     when('/about', {
-        templateUrl: '../static/partials/about.html',
+        templateUrl: '../partials/about.html',
         controller: 'AboutController'
       }).
     otherwise({

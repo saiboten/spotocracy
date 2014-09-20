@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    script(type="text/javascript")= "Spotocracy = {}; Spotocracy.playlist = '" + playlist + "';"
+
+    div(class="jumbotron")
+        div(ng-controller="MenuController", class="container")
+            ul(class="nav nav-pills")
+                li(ng-class="getClass('/playlist')")
+                    a(href="#/playlist") Spilleliste
+                li(ng-class="getClass('/search')")
+                    a(href="#/search") Søk
+                li(ng-class="getClass('/about')")
+                    a(href="#/about") Om
+            div(class="page-header")
+                h2= "Spillelistenavn: " + playlist
+
+            div(ng-view)
+
+    div(class="container")
+        footer
+            p &copy; Tobias Rusås Olsen 2014
