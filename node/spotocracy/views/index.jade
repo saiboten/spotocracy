@@ -1,5 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div(class="jumbotron")
+    div(ng-controller="RootController", class="container")
+     h2= title
+     div(class="well well-lg") Skriv inn navn på playlisten du vil bruke, og klikk "GO!"
+     form(ng-submit="clicked()", role="form")
+         div(class="form-group")
+            input(type="text", class="form-control ng-pristine ng-valid", ng-model="url", id="exampleInputEmail1", autocomplete="off", typeahead="playlist for playlist in getPlaylist($viewValue) | filter:$viewValue | limitTo:8", placeholder="Velg playlist")
+        button(type="submit", class="btn btn-default") GO!
+  div(class="container")
+      footer
+          p &copy; Tobias Rusås Olsen 2014

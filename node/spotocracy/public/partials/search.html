@@ -1,0 +1,32 @@
+<div ng-controller="SearchController">
+
+	<h3>Spotify-søk</h3>
+
+	<form ng-submit="fetch()">
+		
+		
+		<label for="spotitySearchBox">Klikk på søkeresultatet for å
+			legge til i spillelisten</label> 
+			
+		<div class="row">
+			<div class="col-md-8">
+				<input id="spotitySearchBox"
+				class="form-control" type="search" ng-model="searchKeyword"
+				placeholder="Søk etter band/artist eller låt" />
+			</div>
+			<div class="col-md-2">
+				<button class="btn btn-default" id="fetchbtn"
+					ng-click="searchSpotify()">Søk</button>
+			</div>
+	</div>
+	</form>
+ 
+	<div ng-show="status" class="alert alert-success">{{status}}</div>
+	<div ng-show="error" class="alert alert-danger">{{error}}</div>
+
+	<div class="list-group">
+		<a  popover="Klikk for å legge til" popover-placement="left" popover-trigger="mouseenter" href='#search' ng-click="addTrack(track.href)" class="list-group-item"
+			ng-repeat="track in tracks | limitTo:10">
+			{{track.artists[0].name}} - {{track.name}} </a>
+	</div>
+</div>

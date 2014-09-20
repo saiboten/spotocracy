@@ -1,0 +1,48 @@
+<div ng-controller="PlaylistController">
+
+	<div class="panel panel-default">
+		<div class="panel-body">Du har {{userVotes}} stemmer.</div>
+		<div class="panel-body" ng-show="currentArtist">Spiller nå: <strong>{{currentArtist}}</strong> - {{currentSong}}</div>
+	</div>
+
+	<h2>Spillelisten</h2>
+
+	<div ng-show="result" class="alert alert-success">{{result}}</div>
+	<div ng-show="error" class="alert alert-danger">{{error}}</div>
+	<div ng-show="!result && !error" class="well">Stem på
+			en låt ved å klikke på den.</div>
+
+	<div class="list-group">
+	
+		<div ng-hide="songs" class="panel panel-default">
+			<div class="panel-body">Du har ikke lagt til noen låter i spillelisten enda. Klikk søk på toppen for å søke opp låter du vil legge til.</div>
+			
+		</div>
+	
+		<a href='#/playlist' class="list-group-item" ng-class="{'list-group-item-success': song.uri == selectedSong.uri}" ng-repeat="song in songs"
+			ng-click="boostTrack(song)"> 
+	
+			<div class="row">
+				<div class="col-md-4"><strong>{{song.artist}}</strong> - {{song.song}}</div>
+				
+				<div class="col-md-6"><progressbar value="(song.score/totalVotes) * 100"><span style="color:black; white-space:nowrap;"></progressbar></div>
+				<div class="col-md-2"><span class="badge">{{song.score}}</span> </div>
+			</div>
+			
+			
+		</a>
+	</div>
+
+</div>
+
+<div ng-controller="RootController">
+				
+		<form ng-submit="clicked()" role="form">
+		  <div class="form-group">
+		    <input type="text" class="form-control ng-pristine ng-valid" ng-model="url" autocomplete="off" typeahead="playlist for playlist in getPlaylist($viewValue) | filter:$viewValue | limitTo:8" placeholder="Bytt playlist">
+		  </div>
+		
+		  <button type="submit" class="btn btn-default">Bytt!</button>
+		</form>
+	
+	</div>
