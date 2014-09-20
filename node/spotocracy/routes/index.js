@@ -47,6 +47,12 @@ router.get('/add/:playlist/:uri', function(req, res){
     });
 });
 
+router.get('/getSong/:playlist', function(req, res){
+    res.json({
+        nextSong: "spotify:track:5CeL9C3bsoe4yzYS1Qz8cw"
+    });
+});
+
 router.get('/playlists', function(req, res){
 
     res.json({

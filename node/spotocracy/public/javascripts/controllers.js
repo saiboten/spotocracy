@@ -156,10 +156,14 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 		 
 		 $scope.delayedClearStatus();
 	}
-	
-		$scope.getSong();
-		$interval($scope.getSong, 5000);
-	
+
+     $scope.getSong();
+     var getSongInterval = $interval($scope.getSong, 5000);
+
+    $scope.$on('$destroy', function() {
+        // Make sure that the interval is destroyed too
+        $interval.cancel(getSongInterval);
+    });
 });
 
 /**
