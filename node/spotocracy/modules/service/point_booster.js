@@ -18,6 +18,11 @@ var boost_score = function(playlist_id, uri, req) {
                 user_service.vote_used(playlist_id, req);
             }
         });
+
+        playlist.songs.sort(function(a, b){
+            return a.score<b.score;
+        });
+
         return true;
     }
     else {
