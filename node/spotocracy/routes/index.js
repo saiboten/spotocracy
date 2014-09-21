@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var playlist_service = require("../modules/service/playlist_service");
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -54,9 +55,8 @@ router.get('/getSong/:playlist', function(req, res){
 });
 
 router.get('/playlists', function(req, res){
-
     res.json({
-        playlists: ["hardcoded","test"]
+        "playlists": playlist_service.get_playlists()
     });
 });
 
