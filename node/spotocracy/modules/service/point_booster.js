@@ -5,6 +5,7 @@
 var playlist_service = require("./playlist_service");
 var user_service = require("./user_service");
 var userid_service = require("./userid_service");
+var websocket = require("../websocket/socket");
 
 var boost_score = function(playlist_id, uri, req) {
     var user_votes = user_service.get_user_votes(playlist_id, req);
@@ -22,7 +23,7 @@ var boost_score = function(playlist_id, uri, req) {
         playlist.songs.sort(function(a, b){
             return a.score<b.score;
         });
-
+        websocket.time_to_update();
         return true;
     }
     else {

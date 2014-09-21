@@ -1,9 +1,32 @@
 #!/usr/bin/env node
 var debug = require('debug')('spotocracy');
 var app = require('../app');
+var http = require('http');
+var mysocket = require('../modules/websocket/socket');
 
 app.set('port', process.env.PORT || 3000);
 
-var server = app.listen(app.get('port'), function() {
-  debug('Express server listening on port ' + server.address().port);
+//var server = app.listen(app.get('port'), function() {
+//  debug('Express server listening on port ' + server.address().port);
+//});
+
+var server = http.createServer(app).listen(app.get('port'), function(){
+    console.log('Express server listening on port ' + app.get('port'));
 });
+
+var sockjs = require('sockjs');
+var sockSocket = sockjs.createServer();
+
+sockSocket.on('connection', function(conn) {
+    mysocket.add_connection(conn);
+
+    conn.on('data', function(message) {
+        console.log("The connection sent something. Why? ", message);
+    });
+
+    conn.on('close', function() {
+        console.log("A connection was closed. Bye!");
+    });
+});
+
+sockSocket.installHandlers(server, {prefix:'/socket'});

@@ -9,12 +9,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/get_current_songs/:playlist', function(req, res) {
-    res.json({
-        songs: playlist_service.get_songs_from_playlist(req.params.playlist),
-        userVotes: user_service.get_user_votes(req.params.playlist, req),
-        totalVotes: playlist_service.get_total_number_of_votes_for_playlist(req.params.playlist),
-        playingSong: playlist_service.get_playing_song_from_playlist(req.params.playlist)
-    });
+    res.json(playlist_service.get_current_songs(req.params.playlist, req));
 });
 
 router.get('/p/:playlist', function(req, res){

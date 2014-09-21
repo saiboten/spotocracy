@@ -157,13 +157,17 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 		 $scope.delayedClearStatus();
 	}
 
-     $scope.getSong();
-     var getSongInterval = $interval($scope.getSong, 5000);
 
-    $scope.$on('$destroy', function() {
-        // Make sure that the interval is destroyed too
-        $interval.cancel(getSongInterval);
-    });
+
+    var sock = new SockJS('http://localhost:3000/socket');
+    sock.onmessage = function(e) {
+        console.log("Received message: ", e)
+        if(e.data === "Update") {
+            $scope.getSong();
+        }
+    };
+
+    $scope.getSong();
 });
 
 /**
