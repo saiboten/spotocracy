@@ -4,7 +4,6 @@
 
 	<form ng-submit="fetch()">
 		
-		
 		<label for="spotitySearchBox">Klikk på søkeresultatet for å
 			legge til i spillelisten</label> 
 			
@@ -20,12 +19,14 @@
 			</div>
 	</div>
 	</form>
+
+
  
 	<div ng-show="status" class="alert alert-success">{{status}}</div>
 	<div ng-show="error" class="alert alert-danger">{{error}}</div>
 
 	<div class="list-group">
-		<a  popover="Klikk for å legge til" popover-placement="left" popover-trigger="mouseenter" href='#search' ng-click="addTrack(track.href)" class="list-group-item"
+		<a href='#search' ng-click="addTrack(track.href)" class="list-group-item"
 			ng-repeat="track in tracks | limitTo:10">
 			{{track.artists[0].name}} - {{track.name}} </a>
 	</div>

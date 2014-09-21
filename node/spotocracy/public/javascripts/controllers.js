@@ -73,14 +73,21 @@ phonecatApp.controller('SearchController', function ($scope, $http, $timeout) {
 		  $scope.error = "Du må skrive inn et søkeord";
 	  }
 	  else {
+          $scope.status = "Søker ...";
 		  $http({method: $scope.method, url: $scope.theUrl + $scope.searchKeyword, cache: false}).
 		    success(function(data, status) {
 		      $scope.tracks = data.tracks;
 		      $scope.error = undefined;
+              $scope.status = "";
+
+              if(data.tracks.length == 0) {
+                  $scope.status = "Fant ingen låter som passet";
+              }
 		    }).
 		    error(function(data, status) {
 		      $scope.data = data || "Request failed";
 		      $scope.error = status;
+              $scope.status = "";
 		  });
 	  }
 	};
