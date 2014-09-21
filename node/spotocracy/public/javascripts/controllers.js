@@ -244,7 +244,7 @@ phonecatApp.controller('RootController', function ($scope, $location, $http) {
 	
 	$scope.getPlaylist = function(view) {
 		return $scope.playlists.filter(function(playlist) {
-			var re = new RegExp(view, 'g');
+			var re = new RegExp(view, 'gi');
 			return playlist.match(re);
 		});
 	}
