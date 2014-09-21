@@ -8,26 +8,14 @@ router.get('/', function(req, res) {
 });
 
 router.get('/get_current_songs/:playlist', function(req, res) {
+    var songs = playlist_service.get_songs_from_playlist(req.params.playlist);
     res.json({
-        songs: [{
-            uri: "uri",
-            artist: "Artist",
-            song: "Song",
-            score: 2
-        }],
-        userVotes: 0,
-        totalVotes: 0,
-        playingSong: {
-            uri: "blabla",
-            artist: "Mister man",
-            song: "Ei kjekke låt",
-            score: 5
-        }
+        songs: songs
     });
 });
 
 router.get('/p/:playlist', function(req, res){
-    console.log("This is the selected playlist: " + req.params.playlist);
+    playlist_service.create_playlist_if_not_exist(req.params.playlist);
     res.render('playlist', { playlist: req.params.playlist });
 });
 
@@ -43,14 +31,15 @@ router.post('/boost/:playlist/:uri', function(req, res){
 });
 
 router.get('/add/:playlist/:uri', function(req, res){
+    var success = playlist_service.add_track_to_playlist(req.params.playlist, req.params.uri);
     res.json({
-        success: true
+        success: success
     });
 });
 
-router.get('/getSong/:playlist', function(req, res){
+router.get('/get_song/:playlist', function(req, res){
     res.json({
-        nextSong: "spotify:track:5CeL9C3bsoe4yzYS1Qz8cw"
+        nextSong: playlist_service.get_next_song_from_playlist(req.params.playlist)
     });
 });
 

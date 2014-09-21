@@ -1,11 +1,11 @@
 /**
  * Created by Tobias on 21.09.2014.
  */
-var Playlist = function(current_song, playlist_id, scores, songs) {
-    this.current_song = current_song,
+var Playlist = function(playlist_id) {
+    this.current_song = undefined,
     this.playlist_id = playlist_id;
-    this.scores = scores;
-    this.songs = songs;
+    this.scores = 0;
+    this.songs = [];
 }
 
 module.exports = Playlist;

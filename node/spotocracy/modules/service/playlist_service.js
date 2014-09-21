@@ -1,17 +1,55 @@
 /**
  * Created by Tobias on 21.09.2014.
  */
-var playlist = require('../model/playlist');
+var playlist_repo = require("../storage/playlistrepo");
+var spotify_rest_service = require("./spotify_rest_service");
 
-var playlists = [];
+var create_playlist_if_not_exist = function(playlist_id) {
+    var playlist = playlist_repo.get_playlist(playlist_id);
 
-playlists.push(new playlist("current song", "playlist id", "changethis", "blabla"));
+    if(!playlist) {
+        playlist_repo.add_playlist(playlist_id);
+    }
+}
 
 var get_playlists = function() {
-    var playlist_ids = playlists.map(function(playlist) {
-        return playlist.playlist_id;
-    })
-    return playlist_ids;
+    var playlists = [];
+
+    for (var key in playlist_repo.get_all_playlists()) {
+        playlists.push(key);
+    }
+
+    return playlists;
+}
+
+var get_songs_from_playlist = function(playlist_id) {
+    var playlist = playlist_repo.get_playlist(playlist_id);
+    if(playlist) {
+        return playlist.songs;
+    }
+}
+
+var add_track_to_playlist = function(playlist_id, track_id) {
+    var success = false;
+    var song = spotify_rest_service.uri_to_song(track_id);
+    var playlist = playlist_repo.get_playlist(playlist_id);
+    if(playlist) {
+        playlist.songs.push(song);
+        success = true;
+    }
+    return success;
+}
+
+var get_next_song_from_playlist = function(playlist_id) {
+    var playlist = playlist_repo.get_playlist(playlist_id);
+    var next_track = playlist.songs.shift(); // Shift removes the first element, like a reverse pop
+    console.log("Next track: ", next_track);
+    playlist.songs.push(next_track);
+    return next_track.uri;
 }
 
 module.exports.get_playlists = get_playlists;
+module.exports.add_track_to_playlist = add_track_to_playlist;
+module.exports.get_songs_from_playlist = get_songs_from_playlist;
+module.exports.create_playlist_if_not_exist = create_playlist_if_not_exist;
+module.exports.get_next_song_from_playlist = get_next_song_from_playlist
