@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var point_give_scheduled_job = require("./modules/service/point_giver");
 
 var app = express();
 
@@ -56,5 +57,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
+point_give_scheduled_job.init();
 
 module.exports = app;

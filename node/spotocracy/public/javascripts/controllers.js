@@ -115,7 +115,7 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 		    	$scope.songs = data.songs;
 		    	if(data.playingSong)  {
 		    		$scope.currentArtist = data.playingSong.artist;
-			    	$scope.currentSong = data.playingSong.song;
+			    	$scope.currentSong = data.playingSong.name;
 		    	}
 		    	
 		    	$scope.totalVotes = data.totalVotes;

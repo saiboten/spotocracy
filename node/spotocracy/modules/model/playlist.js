@@ -6,6 +6,7 @@ var Playlist = function(playlist_id) {
     this.playlist_id = playlist_id;
     this.scores = 0;
     this.songs = [];
+    this.users = [];
 }
 
 module.exports = Playlist;

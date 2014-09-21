@@ -1,39 +1,51 @@
 var express = require('express');
 var router = express.Router();
 var playlist_service = require("../modules/service/playlist_service");
+var user_service = require("../modules/service/user_service");
+var point_booster = require("../modules/service/point_booster");
 
-/* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'Velg playlist' });
 });
 
 router.get('/get_current_songs/:playlist', function(req, res) {
-    var songs = playlist_service.get_songs_from_playlist(req.params.playlist);
     res.json({
-        songs: songs
+        songs: playlist_service.get_songs_from_playlist(req.params.playlist),
+        userVotes: user_service.get_user_votes(req.params.playlist, req),
+        totalVotes: playlist_service.get_total_number_of_votes_for_playlist(req.params.playlist),
+        playingSong: playlist_service.get_playing_song_from_playlist(req.params.playlist)
     });
 });
 
 router.get('/p/:playlist', function(req, res){
+    console.log("/p/playlist");
     playlist_service.create_playlist_if_not_exist(req.params.playlist);
+    user_service.create_user_if_not_exist(req.params.playlist, req);
     res.render('playlist', { playlist: req.params.playlist });
 });
 
 router.post('/boost/:playlist/:uri', function(req, res){
-    res.json({
-        songs: [{
-            uri: "uri",
-            artist: "Artist",
-            song: "Song",
-            score: 2
-        }]
-    });
+    var success = point_booster.boost_score(req.params.playlist, req.params.uri, req);
+
+    if(success) {
+        res.json({
+            songs: playlist_service.get_songs_from_playlist(req.params.playlist),
+            userVotes: user_service.get_user_votes(req.params.playlist, req),
+            totalVotes: undefined,
+            playingSong: undefined
+        });
+    }
+    else {
+        res.json({
+            alreadyvoted: "true"
+        });
+    }
 });
 
 router.get('/add/:playlist/:uri', function(req, res){
-    var success = playlist_service.add_track_to_playlist(req.params.playlist, req.params.uri);
+    playlist_service.add_track_to_playlist(req.params.playlist, req.params.uri);
     res.json({
-        success: success
+        success: true
     });
 });
 
