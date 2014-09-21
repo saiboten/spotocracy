@@ -157,7 +157,7 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 		 $scope.delayedClearStatus();
 	}
 
-    var sock = new SockJS('http://spotocracy.net/socket');
+    var sock = new SockJS('/socket');
     sock.onmessage = function(e) {
         console.log("Received message: ", e)
         if(e.data === "Update") {
