@@ -15,7 +15,7 @@ var get_playlist = function(playlist_id, callback) {
         }
         else {
             if(playlist) {
-                console.log("playlistrepo:: Playlist searched and found: Returning playlist.data: ", playlist.data);
+                //console.log("playlistrepo:: Playlist searched and found: Returning playlist.data: ", playlist.data);
                 callback(playlist.data);
             }
             else {
@@ -80,7 +80,6 @@ var save_playlist = function(playlistdata, callback) {
 var get_all_votes = function(playlist_id, callback) {
     console.log("playlistrepo:: Getting all votes in playlist");
     get_playlist(playlist_id, function(playlist) {
-        console.log("This is the playlist data source: ", playlist);
         if(playlist.songs && playlist.songs.length > 0) {
             var sum = playlist.songs.reduce(function(previousValue, currentValue) {
                 return previousValue+currentValue.score;

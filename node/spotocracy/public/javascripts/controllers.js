@@ -49,7 +49,7 @@ phonecatApp.controller('SearchController', function ($scope, $http, $timeout) {
 		    	if(status == 200) {
 		    		console.log("data", data);
 		    		 $scope.status = "Låt lagt til!";
-		    		 $scope.tracks = undefined;
+		    		 //$scope.tracks = undefined;
 		    	}
 		    	else {
 		    		$scope.error = "Låt ble ikke lagt til?";
@@ -105,6 +105,14 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 	$scope.playlist = Spotocracy.playlist;
 	$scope.totalVotes = 0;
 	$scope.selectedSong = undefined;
+
+    $scope.currentPage = 1;
+    $scope.totalItems = 0;
+
+    $scope.setPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+        $scope.getSong();
+    };
 	
 	$scope.delayedClearStatus = function() {
 		$timeout(function() {
@@ -115,11 +123,12 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 	
 	$scope.getSong = function() {
 		console.log("Lets get song!");
-		 $http({method: $scope.method, url: $scope.getSongsUri + $scope.playlist , cache: false}).
+		 $http({method: $scope.method, url: $scope.getSongsUri + $scope.playlist + "/" + $scope.currentPage, cache: false}).
 		    success(function(data, status) {
 		    	console.log("data", data);
 		    	$scope.userVotes = data.userVotes;
-		    	$scope.songs = data.songs;
+		    	$scope.songs = data.songData.songs;
+                $scope.totalItems = data.songData.totalSongs;
 		    	if(data.playingSong)  {
 		    		$scope.currentArtist = data.playingSong.artist;
 			    	$scope.currentSong = data.playingSong.name;
@@ -178,7 +187,7 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 /**
  * Playlist Controller!
  */
-phonecatApp.controller('MenuController', function ($scope, $location) {
+phonecatApp.controller('MenuController', function ($scope, $location, $modal, $log) {
 	
 	$scope.isCollapsed = true;
 	
@@ -190,7 +199,20 @@ phonecatApp.controller('MenuController', function ($scope, $location) {
 	      return ""
 	    }
 	}
-	
+
+    $scope.open = function () {
+        var modalInstance = $modal.open({
+            templateUrl: '../html/test.html',
+            controller: 'ModalInstanceCtrl'
+        });
+
+        modalInstance.result.then(function (username) {
+            $scope.username = username;
+            $log.info('Username is: ', username);
+        }, function () {
+            $log.info('Cancelled! NO YOU CANT CANCEL!!!');
+        });
+    }
 	
 });
 
@@ -253,4 +275,15 @@ phonecatApp.controller('RootController', function ($scope, $location, $http) {
 		console.log("Changing url to ", $scope.url);
 		window.location = '/p/' + $scope.url;
 	}
+});
+
+phonecatApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+    $scope.usernameEntered = function (username) {
+        console.log("Scope username: ", username);
+        $modalInstance.close(username);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
 });

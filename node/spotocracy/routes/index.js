@@ -10,8 +10,8 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Velg playlist' });
 });
 
-router.get('/get_current_songs/:playlist', function(req, res) {
-    playlist_service.get_current_songs(req.params.playlist.toLowerCase(), req, function(data) {
+router.get('/get_current_songs/:playlist/:page', function(req, res) {
+    playlist_service.get_current_songs(req.params.playlist.toLowerCase(), req, req.params.page, function(data) {
         res.json(data);
     });
 });

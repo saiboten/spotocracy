@@ -44,10 +44,29 @@ var get_playlist = function(playlist_id, callback) {
     playlist_repo.get_playlist(playlist_id, callback);
 }
 
-var get_songs_from_playlist = function(playlist_id, callback) {
+var get_songs_from_playlist = function(playlist_id, page, callback) {
     playlist_repo.get_playlist(playlist_id, function(playlist) {
+        var songs = playlist.songs;
+
+        songs.sort(function(a, b){
+            if (a.score < b.score) {
+                return 1;
+            }
+            if (a.score > b.score) {
+                return -1;
+            }
+            // a must be equal to b
+            return 0;
+        });
+
+        console.log("Sorting done: ", songs);
+
+        page--;
+        var page_times_ten = page*10;
+        var ten_songs = songs.slice(page_times_ten, page_times_ten+10);
+
         if(playlist) {
-            callback(playlist.songs);
+            callback({songs: ten_songs, totalSongs: playlist.songs.length});
         }
         else {
             console.log("playlist_service:: Could not find the playlist?");
@@ -84,24 +103,20 @@ var get_total_number_of_votes_for_playlist = function(playlist_id, callback) {
     playlist_repo.get_all_votes(playlist_id, callback);
 }
 
-var get_current_songs = function(playlist, req, callback) {
-
-        async.series({
-            songs: function(callbackFinished) {
-                get_songs_from_playlist(playlist, function(songs) {
-                    console.log("SONGS DONE!!!!!!");
+var get_current_songs = function(playlist, req, pagenumber, callback) {
+        async.parallel({
+            songData: function(callbackFinished) {
+                get_songs_from_playlist(playlist, pagenumber, function(songs) {
                     callbackFinished(null,songs );
                 });
             },
            userVotes: function (callbackFinished) {
                 user_service.get_user_votes(req.params.playlist, req, function(votes) {
-                    console.log("USER VOTES DONE!!!!!!");
                     callbackFinished(null,votes );
                 });
             },
            totalVotes: function (callback) {
                 get_total_number_of_votes_for_playlist(playlist, function(votes) {
-                    console.log("ALL VOTES DONE!!!!!!");
                     callback(null, votes);
                 });
             },

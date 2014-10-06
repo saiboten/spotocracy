@@ -28,6 +28,6 @@
 	<div class="list-group">
 		<a href='#search' ng-click="addTrack(track.href)" class="list-group-item"
 			ng-repeat="track in tracks | limitTo:10">
-			{{track.artists[0].name}} - {{track.name}} </a>
+			{{track.artists[0].name}} - {{track.name}} <span class="pull-right glyphicon glyphicon-plus"></span></a>
 	</div>
 </div>

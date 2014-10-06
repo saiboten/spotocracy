@@ -26,11 +26,11 @@
 				<div class="col-md-4"><strong>{{song.artist}}</strong> - {{song.name}}</div>
 				
 				<div class="col-md-6"><progressbar value="(song.score/totalVotes) * 100"><span style="color:black; white-space:nowrap;"></progressbar></div>
-				<div class="col-md-2"><span class="badge">{{song.score}}</span> </div>
+				<div class="col-md-1"><span class="badge">{{song.score}}</span> </div>
+                <div class="col-md-1"><span class="glyphicon glyphicon glyphicon-arrow-up"></span> </div>
 			</div>
-			
-			
 		</a>
+        <pager total-items="totalItems" ng-change="setPage(currentPage)" ng-model="currentPage"></pager>
 	</div>
 
 </div>

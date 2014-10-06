@@ -20,10 +20,6 @@ var boost_score = function(playlist_id, uri, req, callback) {
                     }
                 });
 
-                playlist.songs.sort(function(a, b){
-                    return a.score<b.score;
-                });
-
                 playlist_service.update_playlist(playlist, function() {
                     websocket.time_to_update();
                 });
