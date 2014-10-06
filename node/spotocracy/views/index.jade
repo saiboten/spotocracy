@@ -5,7 +5,7 @@ block content
     div(ng-controller="RootController", class="container")
      h2= title
 
-      div(class="well well-lg") Skriv inn navn på playlisten du vil bruke, og klikk "GO!"
+     div(class="well well-lg") Skriv inn navn på playlisten du vil bruke, og klikk "GO!"
      form(ng-submit="clicked()", role="form")
          div(class="form-group")
             input(type="text", class="form-control ng-pristine ng-valid", ng-model="url", id="exampleInputEmail1", autocomplete="off", typeahead="playlist for playlist in getPlaylist($viewValue) | filter:$viewValue | limitTo:8", placeholder="Velg playlist")
