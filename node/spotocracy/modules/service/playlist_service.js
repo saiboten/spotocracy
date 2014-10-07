@@ -9,7 +9,7 @@ var userid_service = require("./userid_service");
 var websocket = require("../websocket/socket");
 var async = require("async");
 
-var create_playlist_if_not_exist = function(playlist_id, callback) {
+var create_playlist_if_not_exist = function(playlist_id, req, callback) {
     console.log("playlist_service:: Creating new playlist with playlist id: ", playlist_id);
     playlist_repo.get_playlist(playlist_id, function(playlist) {
         if(!playlist) {

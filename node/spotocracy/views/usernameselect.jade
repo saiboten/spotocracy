@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    div(class="jumbotron")
+        div(ng-controller="UsernameController", class="container")
+            h2 Velg brukernavn
+            form(ng-submit='usernameEntered(username)')
+
+                input#username(placeholder='Brukernavn her, takk', ng-model='username')
+                button.btn.btn-primary OK
+    div(class="container")
+        footer
+            p &copy; Tobias Rusås Olsen 2014

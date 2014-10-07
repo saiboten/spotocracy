@@ -1,12 +1,9 @@
 <div class="modal-header">
-    <h3 class="modal-title" for="username">Velg brukernavn</h3>
+    <h3 class="modal-title" for="username">Låt lagt til!</h3>
 </div>
-<form ng-submit="usernameEntered(username)">
 <div class="modal-body">
-   <input id="username" placeholder="Brukernavn her, takk" ng-model="username" />
-
+   Låten ble lagt til. Låten er nå synlig under "Spilleliste"-fanen.
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary">OK</button>
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
 </div>
-</form>

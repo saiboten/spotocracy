@@ -23,9 +23,9 @@ function($routeProvider) {
 
 
 /**
- * Playlist Controller!
+ * Search Controller!
  */
-phonecatApp.controller('SearchController', function ($scope, $http, $timeout) {
+phonecatApp.controller('SearchController', function ($scope, $http, $timeout, $modal) {
 	
 	$scope.method = 'GET';
 	$scope.theUrl = 'http://ws.spotify.com/search/1/track.json?q=';
@@ -48,7 +48,15 @@ phonecatApp.controller('SearchController', function ($scope, $http, $timeout) {
 		    success(function(data, status) {
 		    	if(status == 200) {
 		    		console.log("data", data);
-		    		 $scope.status = "Låt lagt til!";
+                    if(data.success) {
+                        $scope.error = "";
+                        $scope.open();
+                    }
+                    else {
+                        $scope.status = "";
+                        $scope.error = "Låten finnes allerede i spillelisten";
+                    }
+
 		    		 //$scope.tracks = undefined;
 		    	}
 		    	else {
@@ -91,6 +99,15 @@ phonecatApp.controller('SearchController', function ($scope, $http, $timeout) {
 		  });
 	  }
 	};
+
+    $scope.open = function () {
+
+        var modalInstance = $modal.open({
+            templateUrl: '../html/test.html',
+            controller: 'ModalInstanceCtrl',
+            size: 'sm'
+        });
+    };
 });
 /**
  * Playlist Controller!
@@ -105,6 +122,7 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 	$scope.playlist = Spotocracy.playlist;
 	$scope.totalVotes = 0;
 	$scope.selectedSong = undefined;
+    $scope.username = undefined;
 
     $scope.currentPage = 1;
     $scope.totalItems = 0;
@@ -129,6 +147,8 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 		    	$scope.userVotes = data.userVotes;
 		    	$scope.songs = data.songData.songs;
                 $scope.totalItems = data.songData.totalSongs;
+                $scope.username = data.username;
+
 		    	if(data.playingSong)  {
 		    		$scope.currentArtist = data.playingSong.artist;
 			    	$scope.currentSong = data.playingSong.name;
@@ -185,7 +205,7 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 });
 
 /**
- * Playlist Controller!
+ * Menu Controller!
  */
 phonecatApp.controller('MenuController', function ($scope, $location, $modal, $log) {
 	
@@ -216,17 +236,25 @@ phonecatApp.controller('MenuController', function ($scope, $location, $modal, $l
 	
 });
 
-/**
- * Playlist Controller!
- */
+phonecatApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+
+    $scope.ok = function () {
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+});
+
 phonecatApp.controller('AboutController', function ($scope, $location) {
 	
-	$scope.oneAtATime = false;
+	$scope.oneAtATime = true;
 
 	  $scope.groups = [
 	    {
 	      title: 'Hvordan får jeg poeng?',
-	      content: 'Du får automatisk 5 poeng hver halvtime.'
+	      content: 'Du får automatisk 1 poeng hvert femte minutt.'
 	    },
 	    {
 	      title: 'Hvordan stemmer jeg på en låt?',
@@ -234,19 +262,15 @@ phonecatApp.controller('AboutController', function ($scope, $location) {
 	    },
 	    {
 	      title: 'Hvordan legger jeg til en låt?',
-	      content: 'Gå på søk, skriv inn det du søker etter i søkefeltet, og klikk på sangen på resultatsiden.'
+	      content: 'Gå på søk, skriv inn det du søker etter, og klikk på sangen du vil legge til'
 	    },
 	    {
-	      title: 'Kan man ta utgangspunkt i en eksisterende spotify-playlist for å populere spillelisten?',
-	      content: 'Detter kommer. Snart.'
-	    },
-	    {
-	      title: 'Hvordan installerer jeg spotify-spotocracy-appen?',
-	      content: 'Detaljert info om dette kommer kanskje. Dette er avansert. Det innebærer bl.a. å aktivere developer-mode, laste ned spotocracy-appen og plassere den på riktig sted. Deretter skrive en magisk kommando i spotify-desktop-klienten.'
+	      title: 'Hvordan spiller jeg av låtene?',
+	      content: 'Dette gjøres vha en avspillerapp. Den krever at du er Spotify Premium-bruker. Mer info TBA'
 	    },
 	    {
 	      title: 'Kan jeg ha flere spillelister?',
-	      content: 'Ja, du kan ha så mange spillelister du vil. Spillelistenavnet bestemmes av adressen, f.eks spotocracy.com/p/dittspillelistenavn'
+	      content: 'Ja, du kan ha så mange spillelister du vil. Bare velg bytt spilleliste og skriv inn noe som ikke finnes fra før'
 	    }
 	  ];
 });
@@ -277,13 +301,30 @@ phonecatApp.controller('RootController', function ($scope, $location, $http) {
 	}
 });
 
-phonecatApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+phonecatApp.controller('UsernameController', function ($scope, $http) {
+    $scope.method = 'POST';
+    $scope.usernameUrl = 'username/'
+    $scope.error = undefined;
+
     $scope.usernameEntered = function (username) {
         console.log("Scope username: ", username);
-        $modalInstance.close(username);
-    };
 
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
+        var fullUrl = $scope.usernameUrl + username ;
+
+        $http({method: $scope.method, url: fullUrl , cache: false}).
+            success(function(data) {
+                if(data.success) {
+                    window.location.reload();
+                }
+                else if(data.error == "userid_taken"){
+                    $scope.error = "Brukernavn tatt. Velg et annet brukernavn!";
+                }
+                else {
+                    $scope.error = data.error;
+                }
+            }).
+            error(function(data, status) {
+                $scope.error = "Noe gikk fryktelig galt:" + status;
+            });
     };
 });
