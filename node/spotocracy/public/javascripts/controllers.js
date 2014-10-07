@@ -31,6 +31,7 @@ phonecatApp.controller('SearchController', function ($scope, $http, $timeout, $m
 	$scope.theUrl = 'http://ws.spotify.com/search/1/track.json?q=';
 	$scope.addTrackUrl = '/add/'
 	$scope.playlist = Spotocracy.playlist;
+    $scope.track = undefined;
 	
 	$scope.delayedClearStatus = function() {
 		$timeout(function() {
@@ -40,7 +41,7 @@ phonecatApp.controller('SearchController', function ($scope, $http, $timeout, $m
 	}
 	
 	$scope.addTrack = function(track) {
-		
+        $scope.track = track;
 		var fullUrl = $scope.addTrackUrl + $scope.playlist + "/" + track;
 		console.log("Full url:", fullUrl);
 		
@@ -105,7 +106,21 @@ phonecatApp.controller('SearchController', function ($scope, $http, $timeout, $m
         var modalInstance = $modal.open({
             templateUrl: '../html/test.html',
             controller: 'ModalInstanceCtrl',
-            size: 'sm'
+            size: 'sm',
+            resolve: {
+                track: function () {
+                    var songFound = undefined;
+                    $scope.tracks.forEach(function(song) {
+
+                        if($scope.track == song.href) {
+                            console.log("GOT IT!: ", song);
+                            songFound = song;
+                        }
+                    })
+
+                    return songFound;
+                }
+            }
         });
     };
 });
@@ -236,7 +251,9 @@ phonecatApp.controller('MenuController', function ($scope, $location, $modal, $l
 	
 });
 
-phonecatApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+phonecatApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, track) {
+
+    $scope.track = track;
 
     $scope.ok = function () {
         $modalInstance.close();
