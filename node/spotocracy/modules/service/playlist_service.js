@@ -84,7 +84,14 @@ var get_next_song_from_playlist = function(playlist_id, callback) {
         playlist.songs.push(next_track);
 
         playlist.songs.sort(function(a, b){
-            return a.score<b.score;
+            if (a.score < b.score) {
+                return 1;
+            }
+            if (a.score > b.score) {
+                return -1;
+            }
+            // a must be equal to b
+            return 0;
         });
 
         update_playlist(playlist, function() {
