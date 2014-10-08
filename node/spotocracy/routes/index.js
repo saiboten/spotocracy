@@ -66,7 +66,8 @@ router.get('/add/:playlist/:uri', function(req, res){
 });
 
 router.get('/get_song/:playlist', function(req, res){
-    playlist_service.get_next_song_from_playlist(req.params.playlist.toLowerCase(), function(next_song)  {
+    playlist_service.
+        get_next_song_from_playlist(req.params.playlist.toLowerCase(), function(next_song)  {
         res.json({nextSong: next_song});
     })
 });

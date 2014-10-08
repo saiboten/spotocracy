@@ -98,9 +98,10 @@ var get_next_song_from_playlist = function(playlist_id, callback) {
         console.log("Next track: ", next_track);
 
         playlist.songs.push(next_track);
+        playlist.current_song = next_track;
 
         update_playlist(playlist, function() {
-            playlist.current_song = next_track;
+
             callback(next_track.uri)
             websocket.time_to_update();
         });
@@ -134,7 +135,6 @@ var get_current_songs = function(playlist, req, pagenumber, callback) {
             },
             playingSong: function (callback) {
                 get_playing_song_from_playlist(playlist, function(song) {
-                    console.log("PLAYING SONG DONE!!!!!!");
                     callback(null, song);
                 })
             }

@@ -26,6 +26,7 @@ sockSocket.on('connection', function(conn) {
 
     conn.on('close', function() {
         console.log("A connection was closed. Bye!");
+        mysocket.close_connection(conn);
     });
 });
 
