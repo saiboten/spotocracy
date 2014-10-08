@@ -48,6 +48,12 @@ var get_songs_from_playlist = function(playlist_id, page, callback) {
     playlist_repo.get_playlist(playlist_id, function(playlist) {
         var songs = playlist.songs;
 
+        var position = 0;
+        playlist.songs.forEach(function(song) {
+            song.position = position;
+            position++;
+        })
+
         songs.sort(function(a, b){
             if (a.score < b.score) {
                 return 1;
@@ -56,7 +62,7 @@ var get_songs_from_playlist = function(playlist_id, page, callback) {
                 return -1;
             }
             // a must be equal to b
-            return 0;
+            return a.position - b.position;;
         });
 
         console.log("Sorting done: ", songs);
@@ -77,6 +83,11 @@ var get_songs_from_playlist = function(playlist_id, page, callback) {
 
 var get_next_song_from_playlist = function(playlist_id, callback) {
     playlist_repo.get_playlist(playlist_id, function(playlist) {
+        var position = 0;
+        playlist.songs.forEach(function(song) {
+            song.position = position;
+            position++;
+        })
 
         playlist.songs.sort(function(a, b){
             if (a.score < b.score) {
@@ -86,7 +97,7 @@ var get_next_song_from_playlist = function(playlist_id, callback) {
                 return -1;
             }
             // a must be equal to b
-            return 0;
+            return a.position - b.position;
         });
 
         playlist.songs.forEach(function(song) {
