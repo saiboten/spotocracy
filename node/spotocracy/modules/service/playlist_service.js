@@ -77,11 +77,6 @@ var get_songs_from_playlist = function(playlist_id, page, callback) {
 
 var get_next_song_from_playlist = function(playlist_id, callback) {
     playlist_repo.get_playlist(playlist_id, function(playlist) {
-        var next_track = playlist.songs.shift(); // Shift removes the first element, like a reverse pop
-        next_track.score = 0;
-        console.log("Next track: ", next_track);
-
-        playlist.songs.push(next_track);
 
         playlist.songs.sort(function(a, b){
             if (a.score < b.score) {
@@ -93,6 +88,16 @@ var get_next_song_from_playlist = function(playlist_id, callback) {
             // a must be equal to b
             return 0;
         });
+
+        playlist.songs.forEach(function(song) {
+            console.log("song: ", song.artist);
+        });
+
+        var next_track = playlist.songs.shift(); // Shift removes the first element, like a reverse pop
+        next_track.score = 0;
+        console.log("Next track: ", next_track);
+
+        playlist.songs.push(next_track);
 
         update_playlist(playlist, function() {
             playlist.current_song = next_track;
