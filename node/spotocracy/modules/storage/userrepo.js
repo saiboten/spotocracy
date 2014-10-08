@@ -40,7 +40,6 @@ var get_all_users = function(callback) {
 }
 
 var update_user = function(user, callback) {
-    console.log("Updating user with these data: ", user);
     db.users.update({user_id: user.user_id}, user, function() {
         if(callback) {
             callback();

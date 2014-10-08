@@ -7,7 +7,6 @@ var websocket = require("../websocket/socket");
 var give_votes_to_everything = function() {
     console.log("Time to give votes!");
     user_service.get_all_users(function(users) {
-        console.log("Users: ", users);
         users.forEach(function(user) {
             user.playlists.forEach(function(userplaylist) {
                 userplaylist.votes++;

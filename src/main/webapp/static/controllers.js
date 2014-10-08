@@ -142,7 +142,6 @@ phonecatApp.controller('PlaylistController', function ($scope, $http, $interval,
 		    		else {
 		    			$scope.result = "";		    			
 		    		}
-		    		
 		    		$scope.getSong();
 		    	}
 		    	else {
