@@ -11,16 +11,17 @@ var give_votes_to_everything = function() {
             user.playlists.forEach(function(userplaylist) {
                 userplaylist.votes++;
                 user_service.update_user(user);
-                websocket.time_to_update();
             });
         })
     });
+    websocket.time_to_update();
 }
 
 var init = function() {
     console.log("Initiated point giving");
-    setInterval(give_votes_to_everything, 300000);
-    //setInterval(give_votes_to_everything, 5000);
+    //setTimeout(give_votes_to_everything, 5000);
+    //setInterval(give_votes_to_everything, 300000);
+    setInterval(give_votes_to_everything, 5000);
 }
 
 module.exports.init = init;
